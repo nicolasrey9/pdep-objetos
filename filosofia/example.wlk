@@ -71,7 +71,9 @@ class MeditarBajoUnaCascada {
   } 
 }
 
-class PracticarUnDeporte {
+class PracticarUnDeporte {const numeroAleatorio = randomUpTo(10)  // Genera un número entre 0 y 10 (inclusive)
+print(numeroAleatorio)
+
   const deporte
   
   method realizar(unFilosofo) {
@@ -131,6 +133,18 @@ class Discusion {
   method argumentosTotales() = unPartido.argumentosPresentados() + otroPartido.argumentosPresentados()
 
   method argumentosEnriquecedores() = 
-    self.argumentosTotales().filter{ argumento => argumento.esEnriquecedor() }.size()
+    self.argumentosTotales().count{ argumento => argumento.esEnriquecedor() }.
 
+}
+
+// THE LAST DANCE
+class FilosofoContemporaneo inherits Filosofo {
+  var property amaAdmirarElPaisaje
+
+  override method nivelIluminacion() {
+    if(amaAdmirarElPaisaje) return 5 * super()
+    return super()
+  }
+  
+  override method presentarse() = "hola"
 }
