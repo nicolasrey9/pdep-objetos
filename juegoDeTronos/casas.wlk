@@ -1,7 +1,7 @@
 import personajes.*
 // CASAS
 class Casa {
-  const property patrimonio = 0
+  var property patrimonio = 100
   var property miembros = []
 
   method patrimonioDe(miembro) = patrimonio / miembros.size()
@@ -10,6 +10,14 @@ class Casa {
 
   method admiteCasamiento(miembro, otro)
 
+  method pretendiente() = 
+    miembros.find{ 
+      alguien => alguien.noTienePareja() && alguien.estaVivo()
+    }
+
+  method gastar(dinero) {
+    patrimonio -= dinero
+  }
 }
 
 object lennister inherits Casa {

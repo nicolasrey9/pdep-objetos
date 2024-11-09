@@ -5,6 +5,7 @@ class Personaje {
   const conyuges = []
   var property estaVivo
   const acompaniantes = []
+  const personalidad
 
   method noTienePareja() = conyuges.isEmpty()
 
@@ -46,8 +47,52 @@ class Personaje {
 
 
   method esDeCasaRica() = casa.esRica()
+
+  method esAliadoDe(alguien) = self.aliados().contains(alguien)
+
+  method complotarContra(persona) {
+    personalidad.afectarA(persona)
+  }
+
+  method serAsesinado() {
+    estaVivo = false
+  }
+
+  method derrochar(dinero) {
+    casa.gastar(dinero)
+  }
 }
 
+// PERSONALIDADES
+object sutil {
+  const casas = []
+  method afectarA(persona) {
+    const vivoSolteroYPobre = casas.min{ casa => casa.patrimonio() }.pretendiente()
+    persona.casarCon(vivoSolteroYPobre)
+  }
+}
+object asesino {
+  method afectarA(persona) {
+    persona.serAsesinado()
+  }
+}
+object asesinoPrecavido {
+  method afectarA(persona) {
+    if(persona.estaSolo()) persona.serAsesinado() // sutil repeticion de logica con asesino, pero me da paja hacer una clase
+  }
+}
+object disipado {
+  const porcentajeADerrochar = 0.1
+  method afectarA(persona) {
+    persona.derrochar(persona.patrimonio() * porcentajeADerrochar)
+  }
+}
+object miedoso {
+  method afectarA(persona) { }
+}
+
+
+// MASCOTAS
 class Animal {
   method esPeligroso()
   method patrimonio() = 0
